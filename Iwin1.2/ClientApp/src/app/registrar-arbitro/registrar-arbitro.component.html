@@ -1,0 +1,236 @@
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <meta name="description" content="Free Bootstrap Theme by BootstrapMade.com">
+  <meta name="keywords" content="free website templates, free bootstrap themes, free template, free bootstrap, free website template">
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,300|Open+Sans:400,600,700,300' rel='stylesheet' type='text/css'>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <!--===============================================================================================-->
+  <link rel="icon" type="image/png" href="../../assets/images/icons/favicon.ico" />
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="../../assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="../../assets/fonts/iconic/css/material-design-iconic-font.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="../../assets/vendor/animate/animate.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="../../assets/vendor/css-hamburgers/hamburgers.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="../../assets/vendor/animsition/css/animsition.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="../../assets/vendor/select2/select2.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="../../assets/vendor/daterangepicker/daterangepicker.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="../../assets/vendor/noui/nouislider.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="../../assets/css/util.css">
+  <link rel="stylesheet" type="text/css" href="../../assets/css/main.css">
+
+</head>
+<!--header-->
+<header class="main-header" id="header">
+  <div class="bg-color">
+    <!--nav-->
+    <nav class="nav navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="col-md-12">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mynavbar" aria-expanded="false" aria-controls="navbar">
+              <span class="fa fa-bars"></span>
+            </button>
+            <a href="index.html" class="navbar-brand">IWin</a>
+          </div>
+          <div class="collapse navbar-collapse navbar-right" id="mynavbar">
+            <ul class="nav navbar-nav">
+              <li><a href="#contact">Regresar</a></li>
+              <button type="submit" class="btn btn-submit">Cerrar Sesion</button>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <!--/ nav-->
+    <div class="container text-center">
+      <div class="wrapper wow fadeInUp delay-05s">
+        <h4 class="sub-title">Gestionar Arbitro</h4>
+      </div>
+    </div>
+  </div>
+</header>
+
+<ul class="menuAdmin">
+  <li><a href="gestionar-arbitro">Listar</a></li>
+  <li><a href="registrar-arbitro">Registrar</a></li>
+  <li><a href="eliminar-arbitro">Eliminar</a></li>
+</ul>
+
+<div class="container-contact100">
+  <div class="wrap-contact100">
+    <form class="contact100-form validate-form" enctype="multipart/form-data" required>
+      <span class="contact100-form-title"></span>
+      <p>Registrar Arbitro</p>
+
+      <div class="wrap-input100 validate-input bg1" data-validate="Campo requerido">
+        <span class="label-input100">Identificacion *</span>
+        <input class="input100" type="text" [(ngModel)]="identificacion" name="identificacion" placeholder="Nombre del equipo">
+      </div>
+
+      <div class="wrap-input100 validate-input bg1" data-validate="Campo requerido">
+        <span class="label-input100">Nombre *</span>
+        <input class="input100" type="text" [(ngModel)]="nombre" name="nombre" placeholder="Nombre">
+      </div>
+
+      <div class="wrap-input100 validate-input bg1 rs1-wrap-input100" data-validate="Campo requerido">
+        <span class="label-input100">Apellidos *</span>
+        <input class="input100" type="text" [(ngModel)]="apellidos" name="apellidos" placeholder="Apellidos ">
+      </div>
+
+      <div class="wrap-input100 bg1 validate-input rs1-wrap-input100"
+           data-validate="Campo requerido">
+        <span class="label-input100">Telefono Arbitro</span>
+        <input class="input100" type="text" [(ngModel)]="telefono" name="telefono" placeholder="Télefono de contacto">
+      </div>
+
+
+      <div class="wrap-input100 input100-select bg1 rs1-wrap-input100">
+        <span class="label-input100">Deporte *</span>
+        <div>
+          <select [(ngModel)]="categoria" class="js-select2" name="categoria">
+            <option value="Futbol 11">Fútbol 11</option>
+            <option value="Futbol 5">Fútbol 5</option>
+            <option value="Baloncesto">Baloncesto</option>
+          </select>
+          <div class="dropDownSelect2"></div>
+        </div>
+      </div>
+
+
+      <div class="container-contact100-form-btn">
+        <button class="contact100-form-btn" (click)="insertar()">
+          <span>
+            Registrar
+            <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+          </span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<footer class="" id="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-7 footer-copyright">
+        © Bethany Theme - All rights reserved
+        <div class="credits">
+          <!--
+            All the links in the footer should remain intact.
+            You can delete the links only if you purchased the pro version.
+            Licensing information: https://bootstrapmade.com/license/
+            Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Bethany
+          -->
+          Designed by CJM Systems
+        </div>
+      </div>
+      <div class="col-sm-5 footer-social">
+        <div class="pull-right hidden-xs hidden-sm">
+          <a href="https://www.facebook.com/comite.cot"><i class="fa fa-facebook"></i></a>
+          <a href="#"><i class="fa fa-dribbble"></i></a>
+          <a href="#"><i class="fa fa-twitter"></i></a>
+          <a href="#"><i class="fa fa-google-plus"></i></a>
+          <a href="#"><i class="fa fa-pinterest"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<!---->
+<!--contact ends-->
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.easing.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/wow.js"></script>
+<script src="js/custom.js"></script>
+<script src="contactform/contactform.js"></script>
+<!--===============================================================================================-->
+<script src="../../assets/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+<script src="../../assets/vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+<script src="../../assets/vendor/bootstrap/js/popper.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<script src="../../assets/vendor/select2/select2.min.js"></script>
+<script>
+  $(".js-select2").each(function () {
+    $(this).select2({
+      minimumResultsForSearch: 20,
+      dropdownParent: $(this).next('.dropDownSelect2')
+    });
+
+
+    $(".js-select2").each(function () {
+      $(this).on('select2:close', function (e) {
+        if ($(this).val() == "Please chooses") {
+          $('.js-show-service').slideUp();
+        }
+        else {
+          $('.js-show-service').slideUp();
+          $('.js-show-service').slideDown();
+        }
+      });
+    });
+  })
+</script>
+<!--===============================================================================================-->
+<script src="../../assets/vendor/daterangepicker/moment.min.js"></script>
+<script src="../../assets/vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+<script src="../../assets/vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+<script src="../../assets/vendor/vendor/noui/nouislider.min.js"></script>
+<script>
+  var filterBar = document.getElementById('filter-bar');
+
+  noUiSlider.create(filterBar, {
+    start: [1500, 3900],
+    connect: true,
+    range: {
+      'min': 1500,
+      'max': 7500
+    }
+  });
+
+  var skipValues = [
+    document.getElementById('value-lower'),
+    document.getElementById('value-upper')
+  ];
+
+  filterBar.noUiSlider.on('update', function (values, handle) {
+    skipValues[handle].innerHTML = Math.round(values[handle]);
+    $('.contact100-form-range-value input[name="from-value"]').val($('#value-lower').html());
+    $('.contact100-form-range-value input[name="to-value"]').val($('#value-upper').html());
+  });
+</script>
+<!--===============================================================================================-->
+<script src="js/main.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-23581568-13');
+</script>
+
