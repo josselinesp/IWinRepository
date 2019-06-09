@@ -87,7 +87,7 @@ namespace Iwin1._2.Data
             List<Juego> juegoList = new List<Juego>();
             string connectionString = "Server=163.178.107.130; Database=iwincjm; Uid= laboratorios; Pwd=UCRSA.118;";
             // Tu consulta en SQL
-            string query = "SELECT j.identificador, c.nombre_campeonato as campeonato, ea.nombre_equipo as equipoA, " +
+            string query = "SELECT j.identificador, c.nombre_campeonato as campeonato, eb.identificador as idB,ea.identificador as idA,ea.nombre_equipo as equipoA, " +
                 "eb.nombre_equipo as equipoB,j.fecha_juego, j.estado_juego, j.lugar, a.nombre as arbitro " +
                 "FROM iwincjm.juego j JOIN iwincjm.equipo ea ON j.equipo_A = ea.identificador " +
                 "JOIN iwincjm.equipo eb ON j.equipo_B = eb.identificador " +
@@ -126,6 +126,8 @@ namespace Iwin1._2.Data
                     juego.Identificador = reader.GetInt32("identificador");
                     equipoA.NombreEquipo = reader.GetString("equipoA");
                     equipoB.NombreEquipo = reader.GetString("equipoB");
+                    equipoA.Identificador =reader.GetInt32("idA");
+                    equipoB.Identificador = reader.GetInt32("idB");
                     juego.EquipoA = equipoA;
                     juego.EquipoB = equipoB;
                     juego.FechaJuego = reader.GetDateTime("fecha_juego");

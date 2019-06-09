@@ -41,11 +41,15 @@ import { EliminarEquipoAdmComponent } from './eliminar-equipo-adm/eliminar-equip
 import { EliminarEquipoRepComponent } from './eliminar-equipo-rep/eliminar-equipo-rep.component';
 import { ModificarEquipoComponent } from './modificar-equipo/modificar-equipo.component';
 import { RegistrarEquipoComponent } from './registrar-equipo/registrar-equipo.component';
-
+import { AgregarSancionColectivaComponent } from './agregar-sancion-colectiva/agregar-sancion-colectiva.component';
+import { SancionEquipoComponent } from './sancion-equipo/sancion-equipo.component';
+import { SancionColectivaService } from './Service/sancion-colectiva.service';
 
 @NgModule({
   declarations: [
     AppComponent,
+    AgregarSancionColectivaComponent,
+    SancionEquipoComponent,
     NavMenuComponent,
     HomeComponent,
     CounterComponent,
@@ -147,9 +151,12 @@ import { RegistrarEquipoComponent } from './registrar-equipo/registrar-equipo.co
       { path: 'modificar-equipo/:nombre', component: ModificarEquipoComponent },
 
       { path: 'registrar-equipo', component: RegistrarEquipoComponent },
+
+      { path: 'agregarSancionColectiva', component: AgregarSancionColectivaComponent },
+
     ])
   ],
-  providers: [jugadorservice, campeonatoService, juegoService, LoginService, ArbitroService, InscripcionService, EquipoService],
+  providers: [jugadorservice, SancionColectivaService, campeonatoService, juegoService, LoginService, ArbitroService, InscripcionService, EquipoService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
