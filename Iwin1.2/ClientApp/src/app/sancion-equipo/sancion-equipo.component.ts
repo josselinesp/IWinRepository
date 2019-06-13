@@ -5,6 +5,7 @@ import { SancionColectivaService } from '../Service/sancion-colectiva.service';
 import { Juego } from '../Domain/juego.model';
 import { HttpClient } from '@angular/common/http';
 import { Equipo } from '../Domain/Equipo.model';
+import { Alert } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-sancion-equipo',
@@ -15,18 +16,17 @@ export class SancionEquipoComponent implements OnInit {
   @Input() idEquipo: number;
   @Input() idJuego: number;
   equipo: Equipo;
-  total: number=5;
-  conteo: number = 1;
+  total: number;
+  conteo: number = 0;
   tipo: string;
   motivo: string;
+  id: number = 0;
   public sanciones: SancionColectiva[] = [];
-  public resultadoA: Resultado = new Resultado();
+  public resultadoA: Resultado;
   public sancionesExistentes: boolean;
   juego: Juego;
 
   constructor(private http: HttpClient, @Inject('BASE_URL') public baseUrl: string,private SancionColectivaService: SancionColectivaService) {
-
- 
 
 
 
@@ -35,17 +35,54 @@ export class SancionEquipoComponent implements OnInit {
   sancionC: SancionColectiva;
   agregar() {
 
-    this.sancionC = new SancionColectiva(0, this.idJuego, this.idEquipo, this.tipo, this.motivo);
-    this.tipo = "";
-    this.motivo = "";
-    this.sanciones.push(this.sancionC);
-    alert("Se a ingresado correctamente")
+
+    if (this.conteo != this.total) {
+
+      if (this.motivo != '' && this.tipo != '') {
+        this.sancionC = new SancionColectiva(this.id, this.idJuego, this.idEquipo, this.tipo, this.motivo);
+        this.tipo = "";
+        this.id++;
+        this.motivo = "";
+        this.sanciones.push(this.sancionC);
+
+        this.conteo++;
+        alert("Se a ingresado correctamente")
+      }
+      else {
+        alert("Los datos no son correctos")
+
+      }
+    }
+    else {
+
+      alert("Todas las sanciones de " + this.equipo.nombreEquipo+" ya han sido registradas ")
+
+    }
   }
 
+  delete(id: number) {
 
+    let sancionesTemp: SancionColectiva[] = [];
+    for (var _i = 0; _i < this.sanciones.length; _i++) {
+
+      if (this.sanciones[_i].identificador != id) {
+        sancionesTemp.push(this.sanciones[_i])
+
+
+      } else {
+        this.conteo--;
+
+      }
+
+    }
+    this.sanciones = sancionesTemp;
+  
+
+  }
 
   ngOnInit() {
-
+    this.tipo = "";
+    this.motivo = "";
     console.log(this.baseUrl + "api/resultado/equipo/" + this.idEquipo+"  fjnjfhjdsbjb")
     this.http.get<Equipo>(this.baseUrl + "api/resultado/equipo/" + this.idEquipo).subscribe(result => {
       this.equipo = result;
@@ -53,20 +90,28 @@ export class SancionEquipoComponent implements OnInit {
 
     console.log(this.baseUrl + 'api/resultado/' + this.idJuego + "/" + this.idEquipo)
     this.http.get<Resultado>(this.baseUrl + 'api/resultado/' + this.idJuego +"/"+ this.idEquipo).subscribe(result => {
-      this.resultadoA = result;
+      this.resultadoA = result; this.total = this.resultadoA.sancionesColectivas;
     }, error => console.error(error));
-
-   
+  
 
   }
 
+  getTotal() {
+    if (this.resultadoA != null)
+    this.total = this.resultadoA.sancionesColectivas;
+
+  }
+  getNombre() {
 
 
-  getsanciones() {
-    for (var _i = 0; _i < this.resultadoA.sancionesColectivas; _i++) {
 
-      this.sanciones.push(new SancionColectiva());
+    if (this.equipo != undefined) {
+      return this.equipo.nombreEquipo;
     }
+    else return "";
+  }
+  getsanciones() {
+   
     return this.sanciones;
 
 
@@ -90,5 +135,32 @@ export class SancionEquipoComponent implements OnInit {
 
 
   }
+  editar(id: number) {
+    
+     let sancionesTemp: SancionColectiva[] = [];
+    for (var _i = 0; _i < this.sanciones.length; _i++) {
 
+      if (this.sanciones[_i].identificador != id) {
+        sancionesTemp.push(this.sanciones[_i])
+
+
+      } else {
+        this.conteo--;
+        this.tipo = this.sanciones[_i].tipo;
+        this.motivo = this.sanciones[_i].motivo;
+      }
+
+    }
+    this.sanciones = sancionesTemp;
+  }
+
+  validar() {
+    if (this.conteo == this.total) {
+      return true;
+
+
+    }
+    else return false;
+
+  }
 }

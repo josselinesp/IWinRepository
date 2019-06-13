@@ -11,7 +11,7 @@
 </head>
 <div class="a">
 
-  <h1>Equipo: {{equipo.nombreEquipo}}</h1>
+  <h1>Equipo: {{getNombre()}}</h1>
   <br />
   <div class="form-horizontal">
 
@@ -57,7 +57,7 @@
           <td>{{sancion.tipo}}</td>
           <td>{{sancion.motivo}}</td>
           <td>
-            <a href="#" class="btn btn-primary a-btn-slide-text">
+            <a (click)="editar(sancion.identificador)"  class="btn btn-primary a-btn-slide-text">
               <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
               <span><strong>Edit</strong></span>
             </a>

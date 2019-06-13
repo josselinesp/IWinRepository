@@ -25,7 +25,7 @@ export class AgregarSancionColectivaComponent implements OnInit {
   public sanciones: SancionColectiva[] = [];
   public sancionesExistentes: boolean;
   @ViewChild('actualiza') actualizarCom:SancionEquipoComponent;
-  @ViewChild('hijo2') actualizarCom2: SancionEquipoComponent;
+  @ViewChild('actualiza2') actualizarCom2: SancionEquipoComponent;
 
   constructor(private http: HttpClient, @Inject('BASE_URL') public baseUrl: string,private SancionColectivaService: SancionColectivaService) {
 
@@ -84,7 +84,19 @@ export class AgregarSancionColectivaComponent implements OnInit {
 
   guardarSanciones() {
     if (this.actualizarCom != null) {
-      this.actualizarCom.guardar();
+      if (this.actualizarCom2 != null) {
+        if (this.actualizarCom.validar() && this.actualizarCom2.validar()) {
+          alert("todo listo");
+          
+          window.location.reload();
+
+        }
+        else {
+
+          alert("Aun quedan sanciones por registrar");
+
+        }
+      }
 
     }
 

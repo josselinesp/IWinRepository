@@ -126,16 +126,19 @@
   <div class="grid-container1">
     <div class="grid-item1">
 
-      <app-sancion-equipo idEquipo="{{juego.equipoA.identificador}} " idJuego="{{juego.identificador}}"></app-sancion-equipo>
+      <app-sancion-equipo #actualiza idEquipo="{{juego.equipoA.identificador}} " idJuego="{{juego.identificador}}"></app-sancion-equipo>
 
     </div>
     <div class="grid-item1">
-      <app-sancion-equipo idEquipo="{{juego.equipoB.identificador}} " idJuego="{{juego.identificador}}"></app-sancion-equipo>
+      <app-sancion-equipo #actualiza2 idEquipo="{{juego.equipoB.identificador}} " idJuego="{{juego.identificador}}"></app-sancion-equipo>
 
     </div>
     
- 
-  </div>
+    <div class="grid-item1">
+
+      <button type="button" (click)="guardarSanciones()" class="btn btn-info">Guardar</button>
+    </div>
+    </div>
 </div>
 
 <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
