@@ -19,7 +19,6 @@ export class jugadorservice {
     let body = jugador;
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    console.log("aquiiiiiiiiiiiiiiiiiiiiiiiiiiii")
     return this.http.post(this.url + 'api/jugador/', body, options).map(this.extractData);
 
 

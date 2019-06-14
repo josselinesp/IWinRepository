@@ -1,20 +1,23 @@
+import { Juego } from "./juego.model";
+import { Equipo } from "./Equipo.model";
+
 export class SancionColectiva {
   identificador: number;
-  identificadorJuego: number;
-  identificadorEquipo: number;
+  
+  equipo: Equipo;
+  juego: number;
   tipo: string;
   motivo: string;
 
   constructor(identificador?: number,
-    identificadorJuego?: number,
-    identificadorEquipo?: number,
+    identificadorEquipo?: Equipo, identificadorJuego?: number,
     tipo?: string,
     motivo?: string,
   ) {
 
     this.identificador = identificador;
-    this.identificadorEquipo = identificadorEquipo;
-    this.identificadorJuego = identificadorJuego;
+    this.equipo = identificadorEquipo;
+    this.juego = identificadorJuego;
     this.motivo = motivo;
     this.tipo = tipo;
 

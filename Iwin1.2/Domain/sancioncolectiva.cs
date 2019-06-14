@@ -10,15 +10,20 @@ namespace Iwin1._2.Domain
     {
     int identificador;
     Equipo equipo;
-    Juego juego;
+    int juego;
      string tipo;
         string motivo;
+   
+        public override string ToString()
+        {
+            return base.ToString();
+        }
 
         public sancionColectiva()
         {
         }
 
-        public sancionColectiva(int identificador, Equipo equipo, Juego juego, string tipo, string motivo)
+        public sancionColectiva(int identificador, Equipo equipo, int juego, string tipo, string motivo)
         {
             this.Identificador = identificador;
             this.Equipo = equipo;
@@ -29,8 +34,9 @@ namespace Iwin1._2.Domain
 
         public int Identificador { get => identificador; set => identificador = value; }
         public Equipo Equipo { get => equipo; set => equipo = value; }
-        public Juego Juego { get => juego; set => juego = value; }
+      
         public string Tipo { get => tipo; set => tipo = value; }
         public string Motivo { get => motivo; set => motivo = value; }
+        public int Juego { get => juego; set => juego = value; }
     }
 }

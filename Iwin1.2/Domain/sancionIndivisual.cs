@@ -9,19 +9,31 @@ namespace Iwin1._2.Domain
 {
     public class sancionIndivisual
     {
-    int identificador;
-    Equipo equipo;
-    Jugador Jugador;
-    string tarjeta;
-    string motivo;
+        int identificador;
+        Equipo equipo;
+        int juego;
+        Jugador jugador;
+        string tarjeta;
+        string motivo;
+        string castigo;
 
-    public sancionIndivisual(int identificador, Equipo identificadorEquipo, Jugador jugador, string tipo, string motivo)
-    {
-        this.identificador = identificador;
-        this.equipo = identificadorEquipo;
-        Jugador = jugador;
-        this.tarjeta = tipo;
-        this.motivo = motivo;
+        public sancionIndivisual(int identificador, Equipo equipo, int juego, Jugador jugador, string tarjeta, string motivo, string castigo)
+        {
+            this.identificador = identificador;
+            this.equipo = equipo;
+            this.juego = juego;
+            this.jugador = jugador;
+            this.tarjeta = tarjeta;
+            this.motivo = motivo;
+            this.Castigo = castigo;
+        }
+
+        public int Identificador { get => identificador; set => identificador = value; }
+        public Equipo Equipo { get => equipo; set => equipo = value; }
+        public int Juego { get => juego; set => juego = value; }
+        public Jugador Jugador { get => jugador; set => jugador = value; }
+        public string Tarjeta { get => tarjeta; set => tarjeta = value; }
+        public string Motivo { get => motivo; set => motivo = value; }
+        public string Castigo { get => castigo; set => castigo = value; }
     }
-}
 }

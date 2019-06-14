@@ -5,17 +5,21 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Iwin1._2.Domain;
+using Iwin1_2.Data;
+
 namespace Iwin1._2.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class sancionController : ControllerBase
     {
+
+        sancionData sancionData = new sancionData();
         // GET: api/sancion
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<sancionColectiva> Get()
         {
-            return new string[] { "value1", "value2" };
+            return this.sancionData.GetAllSancionescolectivas();
         }
 
         // GET: api/sancion/5
@@ -27,10 +31,11 @@ namespace Iwin1._2.Controllers
 
         // POST: api/sancion
         [HttpPost]
-        public void Post([FromBody] sancionColectiva sancion)
+        public sancionColectiva Post([FromBody] sancionColectiva sancion)
         {
 
-
+            sancionData.registrarSancionColectiva(sancion);
+            return sancion;
 
         }
 

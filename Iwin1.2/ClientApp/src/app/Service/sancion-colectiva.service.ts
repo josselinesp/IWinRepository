@@ -46,6 +46,11 @@ export class SancionColectivaService {
 
 
   }
+  buscarJuego(identificador: number): Observable<Juego> {
+
+    return this.http.get(this.url + "api/juego/" + identificador).map(response => response.json());
+
+  }
 
   public getResultado(idCampeonato: number): Observable<Juego[]> {
 
@@ -60,6 +65,7 @@ export class SancionColectivaService {
   guardarSancion(sancion: SancionColectiva): Observable<SancionColectiva> {
     let body = sancion;
     let headers = new Headers({ 'Content-Type': 'application/json' });
+    console.log("PASA A POST")
     let options = new RequestOptions({ headers: headers });
     return this.http.post(this.url + 'api/sancion/', body, options).map(this.extractData);
 

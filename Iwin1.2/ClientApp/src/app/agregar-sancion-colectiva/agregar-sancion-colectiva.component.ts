@@ -20,22 +20,23 @@ export class AgregarSancionColectivaComponent implements OnInit {
   public campeonatos: Campeonato[];
   public juegos: Juego[];
   public juegosSelectos: boolean;
+  sancionC: SancionColectiva;
   public juego: Juego;
   resultadoA: Resultado;
   public sanciones: SancionColectiva[] = [];
   public sancionesExistentes: boolean;
-  @ViewChild('actualiza') actualizarCom:SancionEquipoComponent;
+  @ViewChild('actualiza') actualizarCom: SancionEquipoComponent;
   @ViewChild('actualiza2') actualizarCom2: SancionEquipoComponent;
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') public baseUrl: string,private SancionColectivaService: SancionColectivaService) {
+  constructor(private http: HttpClient, @Inject('BASE_URL') public baseUrl: string, private SancionColectivaService: SancionColectivaService) {
 
     this.SancionColectivaService.getCampeonatos().subscribe(data => this.campeonatos = data);
-   
+
   }
 
   ngOnInit() {
 
-    
+
 
   }
 
@@ -54,19 +55,17 @@ export class AgregarSancionColectivaComponent implements OnInit {
   seleccionaJuego(juego: Juego) {
     this.juego = juego;
     this.juegosSelectos = true;
-    console.log("PASA POR AQUI")
 
-    console.log(this.baseUrl + 'api/resultado/' + this.juego.identificador + "/" + this.idEquipo)
     this.http.get<Resultado>(this.baseUrl + 'api/resultado/' + this.juego.identificador + "/" + this.idEquipo).subscribe(result => {
       this.resultadoA = result;
     }, error => console.error(error));
 
-   
-
-  
 
 
-    
+
+
+
+
 
 
 
@@ -87,8 +86,17 @@ export class AgregarSancionColectivaComponent implements OnInit {
       if (this.actualizarCom2 != null) {
         if (this.actualizarCom.validar() && this.actualizarCom2.validar()) {
           alert("todo listo");
-          
-          window.location.reload();
+
+          for (var _i = 0; _i < this.actualizarCom.sanciones.length; _i++) {
+            this.SancionColectivaService.guardarSancion(this.actualizarCom.sanciones[_i]).subscribe(data => this.sancionC = data);
+
+          }
+          for (var _i = 0; _i < this.actualizarCom2.sanciones.length; _i++) {
+            this.SancionColectivaService.guardarSancion(this.actualizarCom2.sanciones[_i]).subscribe(data => this.sancionC = data);
+
+          }
+
+            window.location.reload();
 
         }
         else {

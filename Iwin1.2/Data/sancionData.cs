@@ -109,5 +109,53 @@ namespace Iwin1_2.Data
 
 
 
+
+        public void registrarSancionColectiva(sancionColectiva sancion)
+        {
+
+
+
+            string connectionString = "Server=163.178.107.130; Database=iwincjm; Uid= laboratorios; Pwd=UCRSA.118;";
+            // Tu consulta en SQL
+            string query = "Insert into sancioncolectiva values( null " + ",'" + sancion.Juego + "','" + sancion.Equipo.Identificador + "','"  + sancion.Tipo+ "','" + sancion.Motivo + "') ";
+
+
+            // Prepara la conexión
+            MySqlConnection databaseConnection = new MySqlConnection(connectionString);
+            MySqlCommand commandDatabase = new MySqlCommand(query, databaseConnection);
+            commandDatabase.CommandTimeout = 60;
+            MySqlDataReader reader;
+
+            // A consultar !
+
+            // Abre la base de datos
+            databaseConnection.Open();
+
+            // Ejecuta la consultas
+            reader = commandDatabase.ExecuteReader();
+
+            // Hasta el momento todo bien, es decir datos obtenidos
+
+            // IMPORTANTE :#
+            // Si tu consulta retorna un resultado, usa el siguiente proceso para obtener datos
+
+
+
+            // Cerrar la conexión
+            databaseConnection.Close();
+
+
+        }
+
+
+
+
+
     }
+
+
+
+
+
+
 }

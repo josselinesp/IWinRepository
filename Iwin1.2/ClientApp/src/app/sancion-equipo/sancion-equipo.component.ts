@@ -39,7 +39,7 @@ export class SancionEquipoComponent implements OnInit {
     if (this.conteo != this.total) {
 
       if (this.motivo != '' && this.tipo != '') {
-        this.sancionC = new SancionColectiva(this.id, this.idJuego, this.idEquipo, this.tipo, this.motivo);
+        this.sancionC = new SancionColectiva(this.id,  this.equipo,this.idJuego, this.tipo, this.motivo);
         this.tipo = "";
         this.id++;
         this.motivo = "";
@@ -83,12 +83,18 @@ export class SancionEquipoComponent implements OnInit {
   ngOnInit() {
     this.tipo = "";
     this.motivo = "";
-    console.log(this.baseUrl + "api/resultado/equipo/" + this.idEquipo+"  fjnjfhjdsbjb")
     this.http.get<Equipo>(this.baseUrl + "api/resultado/equipo/" + this.idEquipo).subscribe(result => {
       this.equipo = result;
     }, error => console.error(error));
 
-    console.log(this.baseUrl + 'api/resultado/' + this.idJuego + "/" + this.idEquipo)
+   
+
+    this.http.get<Juego>(this.baseUrl + "api/juego/" + this.idJuego).subscribe(result => {
+      this.juego = result;
+    }, error => console.error(error));
+
+
+
     this.http.get<Resultado>(this.baseUrl + 'api/resultado/' + this.idJuego +"/"+ this.idEquipo).subscribe(result => {
       this.resultadoA = result; this.total = this.resultadoA.sancionesColectivas;
     }, error => console.error(error));

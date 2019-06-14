@@ -44,6 +44,10 @@ import { RegistrarEquipoComponent } from './registrar-equipo/registrar-equipo.co
 import { AgregarSancionColectivaComponent } from './agregar-sancion-colectiva/agregar-sancion-colectiva.component';
 import { SancionEquipoComponent } from './sancion-equipo/sancion-equipo.component';
 import { SancionColectivaService } from './Service/sancion-colectiva.service';
+import { AgregarSancionIndividualComponent } from './agregar-sancion-individual/agregar-sancion-individual.component';
+import { SancionIndividualComponent } from './sancion-individual/sancion-individual.component';
+import { AgregarAnotacionesComponent } from './agregar-anotaciones/agregar-anotaciones.component';
+import { AnotacionesComponent } from './anotaciones/anotaciones.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +85,11 @@ import { SancionColectivaService } from './Service/sancion-colectiva.service';
     EliminarEquipoAdmComponent,
     EliminarEquipoRepComponent,
     RegistrarEquipoComponent,
-    ModificarEquipoComponent
+    ModificarEquipoComponent,
+    AgregarSancionIndividualComponent,
+    SancionIndividualComponent,
+    AgregarAnotacionesComponent,
+    AnotacionesComponent
 
   ],
   imports: [
@@ -153,6 +161,8 @@ import { SancionColectivaService } from './Service/sancion-colectiva.service';
       { path: 'registrar-equipo', component: RegistrarEquipoComponent },
 
       { path: 'agregarSancionColectiva', component: AgregarSancionColectivaComponent },
+      { path: 'agregarSancionIndividual', component: AgregarSancionIndividualComponent },
+      { path: 'agregarAnotaciones', component: AgregarAnotacionesComponent },
 
     ])
   ],
