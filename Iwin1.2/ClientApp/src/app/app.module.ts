@@ -142,7 +142,7 @@ import { RegistrarEquipoComponent } from './registrar-equipo/registrar-equipo.co
       { path: 'gestionar-equipo-adm', component: GestionarEquipoAdmComponent },
       { path: 'gestionar-equipo-rep/:nombre', component: GestionarEquipoRepComponent },
       { path: 'eliminar-equipo-adm', component: EliminarEquipoAdmComponent },
-      { path: 'eliminar-equipo-rep/:nombre', component: EliminarEquipoAdmComponent },
+      { path: 'eliminar-equipo-rep/:nombre', component: EliminarEquipoRepComponent },
 
       { path: 'modificar-equipo/:nombre', component: ModificarEquipoComponent },
 
