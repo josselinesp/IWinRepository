@@ -104,6 +104,13 @@ namespace Iwin1._2.Controllers
             return equipoData.infoRep(equipo);
         }
 
+        /**/
+        [HttpGet("equi/{id}", Name = "EquipoInf")]
+        public Equipo equipoInf(String id)
+        {
+            return equipoData.buscarEquipo(id);
+            
+        }
 
     }
 

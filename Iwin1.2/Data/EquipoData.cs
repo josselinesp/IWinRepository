@@ -104,6 +104,7 @@ namespace Iwin1._2.Data
                         Equipo = new Equipo();
                         Equipo.Identificador = reader.GetInt32("identificador");
                         Equipo.NombreEquipo = reader.GetString("nombre_equipo");
+                        Equipo.NombreRepresentante = reader.GetString("nombre_representante");
                         Equipo.Categoria = reader.GetString("categoria");
                         Equipo.Rama = reader.GetString("rama");
                         Equipo.CanchaSede = reader.GetString("cancha_sede");
@@ -142,7 +143,7 @@ namespace Iwin1._2.Data
             Equipo Equipo = null;
 
 
-            string query = "SELECT identificador, nombre_equipo, nombre_representante,categoria,rama,logo, cancha_sede,telefono_representante FROM Equipo WHERE nombre_equipo='" + id + "'";
+            string query = "SELECT identificador, nombre_equipo, nombre_representante,categoria,rama,logo, cancha_sede,telefono_representante,contrasenia_equipo FROM Equipo WHERE nombre_equipo='" + id + "'";
 
             MySqlConnection databaseConnection = new MySqlConnection(connectionString);
             MySqlCommand commandDatabase = new MySqlCommand(query, databaseConnection);
@@ -160,7 +161,6 @@ namespace Iwin1._2.Data
                 while (reader.Read())
                 {
                     //                   ID                              First name                  Last Name                    Address
-                    Console.WriteLine(reader.GetInt32(0) + " - " + reader.GetInt32(1) + " - " + reader.GetString(2) + " - " + reader.GetString(3) + " - " + reader.GetDateTime(4) + " - " + reader.GetDateTime(5) + " - " + reader.GetString(6) + " - " + reader.GetInt32(7));
                     Equipo = new Equipo();
                     Equipo.Identificador = reader.GetInt32("identificador");
                     Equipo.NombreEquipo = reader.GetString("nombre_equipo");
@@ -168,6 +168,8 @@ namespace Iwin1._2.Data
                     Equipo.Rama = reader.GetString("rama");
                     Equipo.CanchaSede = reader.GetString("cancha_sede");
                     Equipo.TelefonoRepresentante = reader.GetString("telefono_representante");
+                    Equipo.ContraseniaEquipo = reader.GetString("contrasenia_equipo");
+                    Equipo.NombreRepresentante = reader.GetString("nombre_representante");
 
 
                     // Ejemplo para mostrar en el listView1 :
