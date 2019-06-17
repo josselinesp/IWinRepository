@@ -48,6 +48,11 @@ import { AgregarSancionIndividualComponent } from './agregar-sancion-individual/
 import { SancionIndividualComponent } from './sancion-individual/sancion-individual.component';
 import { AgregarAnotacionesComponent } from './agregar-anotaciones/agregar-anotaciones.component';
 import { AnotacionesComponent } from './anotaciones/anotaciones.component';
+import { SancionIndividualService } from './Service/sancionIndividual.service';
+import { AnotacionService } from './Service/anotacion.service';
+import { ListarAnotacionesComponent } from './listar-anotaciones/listar-anotaciones.component';
+import { ListarSancionesColectivasComponent } from './listar-sanciones-colectivas/listar-sanciones-colectivas.component';
+import { ListarSancionesIndividualesComponent } from './listar-sanciones-individuales/listar-sanciones-individuales.component';
 
 @NgModule({
   declarations: [
@@ -89,7 +94,10 @@ import { AnotacionesComponent } from './anotaciones/anotaciones.component';
     AgregarSancionIndividualComponent,
     SancionIndividualComponent,
     AgregarAnotacionesComponent,
-    AnotacionesComponent
+    AnotacionesComponent,
+    ListarAnotacionesComponent,
+    ListarSancionesColectivasComponent,
+    ListarSancionesIndividualesComponent
 
   ],
   imports: [
@@ -163,10 +171,13 @@ import { AnotacionesComponent } from './anotaciones/anotaciones.component';
       { path: 'agregarSancionColectiva', component: AgregarSancionColectivaComponent },
       { path: 'agregarSancionIndividual', component: AgregarSancionIndividualComponent },
       { path: 'agregarAnotaciones', component: AgregarAnotacionesComponent },
+      { path: 'listarAnotaciones', component: ListarAnotacionesComponent },
+      { path: 'listarSancionesColectivas', component: ListarSancionesColectivasComponent },
+      { path: 'listarSancionesIndividuales', component: ListarSancionesIndividualesComponent },
 
     ])
   ],
-  providers: [jugadorservice, SancionColectivaService, campeonatoService, juegoService, LoginService, ArbitroService, InscripcionService, EquipoService],
+  providers: [jugadorservice, AnotacionService, SancionColectivaService, SancionIndividualService, campeonatoService, juegoService, LoginService, ArbitroService, InscripcionService, EquipoService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

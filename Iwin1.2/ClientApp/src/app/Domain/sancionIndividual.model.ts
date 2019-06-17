@@ -13,7 +13,7 @@ export class SancionIndividual {
   constructor(identificador?: number,
     identificadorEquipo?: Equipo, identificadorJuego?: number, jugador?: Jugador,
     tipo?: string,
-    motivo?: string,castigo?:string) {
+    motivo?: string, castigo?: string) {
     this.castigo = castigo;
 
     this.jugador = jugador;

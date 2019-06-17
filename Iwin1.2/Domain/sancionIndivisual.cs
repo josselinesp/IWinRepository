@@ -17,6 +17,10 @@ namespace Iwin1._2.Domain
         string motivo;
         string castigo;
 
+        public sancionIndivisual()
+        {
+        }
+
         public sancionIndivisual(int identificador, Equipo equipo, int juego, Jugador jugador, string tarjeta, string motivo, string castigo)
         {
             this.identificador = identificador;

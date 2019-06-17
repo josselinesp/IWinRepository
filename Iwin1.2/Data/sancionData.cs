@@ -22,7 +22,7 @@ namespace Iwin1_2.Data
         }
 
 
-        public List<sancionColectiva> GetAllSancionescolectivas()
+        public List<sancionColectiva> GetAllSancionescolectivas(int id)
         {
             sancionColectiva sancionColectiva;
             List<sancionColectiva> jugadorList = new List<sancionColectiva>();
@@ -30,7 +30,7 @@ namespace Iwin1_2.Data
             {
 
                 sqlCon.Open();
-                String query = "select * from sancionColectiva;";
+                String query = "select * from sancionColectiva where identificador_juego = "+id;
 
                 MySqlCommand sqlSelect = new MySqlCommand(query, sqlCon);
 
@@ -61,6 +61,185 @@ namespace Iwin1_2.Data
 
 
         }
+
+
+        public List<sancionColectiva> GetAllSancionescolectivasByCampeonato(int id)
+        {
+            sancionColectiva sancionColectiva;
+            List<sancionColectiva> jugadorList = new List<sancionColectiva>();
+            using (MySqlConnection sqlCon = GetConnection())
+            {
+
+                sqlCon.Open();
+                String query = "select * from sancionColectiva join juego j on j.identificador= identificador_juego  join campeonato c on c.identificador= j.identificador_campeonato  where c.identificador = " + id;
+
+                MySqlCommand sqlSelect = new MySqlCommand(query, sqlCon);
+
+                using (MySqlDataReader reader = sqlSelect.ExecuteReader())
+                {
+
+
+                    while (reader.Read())
+                    {
+                        sancionColectiva = new sancionColectiva();
+                        sancionColectiva.Identificador = reader.GetInt16("identificador");
+                        sancionColectiva.Tipo = reader.GetString("tipo");
+                        sancionColectiva.Motivo = reader.GetString("motivo");
+
+                        sancionColectiva.Equipo = informacionEquipo(reader.GetInt32("identificador_equipo"));
+
+                        jugadorList.Add(sancionColectiva);
+
+                    }
+                    sqlCon.Close();
+
+                }
+            }
+            return jugadorList;
+
+
+
+
+
+        }
+
+
+
+
+
+
+        public List<sancionIndivisual> GetAllSancionesIndividualesByEquipo(int idEquipo,int idJuego)
+        {
+            sancionIndivisual sancionIndividual;
+            List<sancionIndivisual> jugadorList = new List<sancionIndivisual>();
+            using (MySqlConnection sqlCon = GetConnection())
+            {
+                String query;
+                sqlCon.Open();
+              
+                    query = "select * from sancionindividual where identificador_equipo = " + idEquipo + " and identificador_juego = '" +idJuego+"'";
+                
+
+                MySqlCommand sqlSelect = new MySqlCommand(query, sqlCon);
+
+                using (MySqlDataReader reader = sqlSelect.ExecuteReader())
+                {
+
+
+                    while (reader.Read())
+                    {
+                        sancionIndividual = new sancionIndivisual();
+                        sancionIndividual.Identificador = reader.GetInt16("identificador");
+                        sancionIndividual.Castigo = reader.GetString("castigo");
+                        sancionIndividual.Motivo = reader.GetString("motivo");
+                        sancionIndividual.Tarjeta = reader.GetString("tarjeta");
+                        sancionIndividual.Juego = reader.GetInt32("identificador_juego");
+                        sancionIndividual.Jugador = getJugador(reader.GetString("identificador_jugador"));
+                        sancionIndividual.Equipo = informacionEquipo(reader.GetInt32("identificador_equipo"));
+
+                        jugadorList.Add(sancionIndividual);
+
+                    }
+                    sqlCon.Close();
+
+                }
+            }
+            return jugadorList;
+
+
+
+
+
+        }
+
+
+        public List<sancionIndivisual> GetAllSancionesIndividualesByCampeonato(int id)
+        {
+            sancionIndivisual sancionIndividual;
+            List<sancionIndivisual> jugadorList = new List<sancionIndivisual>();
+            using (MySqlConnection sqlCon = GetConnection())
+            {
+                String query;
+                sqlCon.Open();
+
+                query = "select * from sancionindividual join juego j on j.identificador=identificador_juego join campeonato c on c.identificador=j.identificador_campeonato  where c.identificador = " + id ;
+
+
+                MySqlCommand sqlSelect = new MySqlCommand(query, sqlCon);
+
+                using (MySqlDataReader reader = sqlSelect.ExecuteReader())
+                {
+
+
+                    while (reader.Read())
+                    {
+                        sancionIndividual = new sancionIndivisual();
+                        sancionIndividual.Identificador = reader.GetInt16("identificador");
+                        sancionIndividual.Castigo = reader.GetString("castigo");
+                        sancionIndividual.Motivo = reader.GetString("motivo");
+                        sancionIndividual.Tarjeta = reader.GetString("tarjeta");
+                        sancionIndividual.Juego = reader.GetInt32("identificador_juego");
+                        sancionIndividual.Jugador = getJugador(reader.GetString("identificador_jugador"));
+                        sancionIndividual.Equipo = informacionEquipo(reader.GetInt32("identificador_equipo"));
+
+                        jugadorList.Add(sancionIndividual);
+
+                    }
+                    sqlCon.Close();
+
+                }
+            }
+            return jugadorList;
+
+
+
+
+
+        }
+        public List<sancionIndivisual> GetAllSancionesIndividualesByJuego(int id)
+        {
+            sancionIndivisual sancionIndividual;
+            List<sancionIndivisual> jugadorList = new List<sancionIndivisual>();
+            using (MySqlConnection sqlCon = GetConnection())
+            {
+                String query;
+                sqlCon.Open();
+
+                query = "select * from sancionindividual where identificador_juego = " + id;
+
+
+                MySqlCommand sqlSelect = new MySqlCommand(query, sqlCon);
+
+                using (MySqlDataReader reader = sqlSelect.ExecuteReader())
+                {
+
+
+                    while (reader.Read())
+                    {
+                        sancionIndividual = new sancionIndivisual();
+                        sancionIndividual.Identificador = reader.GetInt16("identificador");
+                        sancionIndividual.Castigo = reader.GetString("castigo");
+                        sancionIndividual.Motivo = reader.GetString("motivo");
+                        sancionIndividual.Tarjeta = reader.GetString("tarjeta");
+                        sancionIndividual.Juego = reader.GetInt32("identificador_juego");
+                        sancionIndividual.Jugador = getJugador(reader.GetString("identificador_jugador"));
+                        sancionIndividual.Equipo = informacionEquipo(reader.GetInt32("identificador_equipo"));
+
+                        jugadorList.Add(sancionIndividual);
+
+                    }
+                    sqlCon.Close();
+
+                }
+            }
+            return jugadorList;
+
+
+
+
+
+        }
+
 
 
 
@@ -147,6 +326,112 @@ namespace Iwin1_2.Data
 
         }
 
+
+
+
+
+        public void registrarSancionIndividual(sancionIndivisual sancion)
+        {
+
+
+
+            string connectionString = "Server=163.178.107.130; Database=iwincjm; Uid= laboratorios; Pwd=UCRSA.118;";
+            // Tu consulta en SQL
+            string query = "Insert into sancionindividual values( null " + "," + sancion.Juego + "," + sancion.Equipo.Identificador + ",'" + sancion.Jugador.Identificacion+ "','" + sancion.Tarjeta + "','" + sancion.Motivo + "','" + sancion.Castigo + "') ";
+
+
+            // Prepara la conexión
+            MySqlConnection databaseConnection = new MySqlConnection(connectionString);
+            MySqlCommand commandDatabase = new MySqlCommand(query, databaseConnection);
+            commandDatabase.CommandTimeout = 60;
+            MySqlDataReader reader;
+
+            // A consultar !
+
+            // Abre la base de datos
+            databaseConnection.Open();
+
+            // Ejecuta la consultas
+            reader = commandDatabase.ExecuteReader();
+
+            // Hasta el momento todo bien, es decir datos obtenidos
+
+            // IMPORTANTE :#
+            // Si tu consulta retorna un resultado, usa el siguiente proceso para obtener datos
+
+
+
+            // Cerrar la conexión
+            databaseConnection.Close();
+
+
+        }
+
+
+
+
+
+
+        public Jugador getJugador(string identificacion)
+        {
+
+            Jugador jugador;
+            List<Jugador> jugadorList = new List<Jugador>();
+            string connectionString = "Server=163.178.107.130; Database=iwincjm; Uid= laboratorios; Pwd=UCRSA.118;";
+            // Tu consulta en SQL
+            string query = "SELECT * FROM Jugador where identificacion = '" + identificacion + "'";
+            Console.Write(query);
+
+
+            // Prepara la conexión
+            MySqlConnection databaseConnection = new MySqlConnection(connectionString);
+            MySqlCommand commandDatabase = new MySqlCommand(query, databaseConnection);
+            commandDatabase.CommandTimeout = 60;
+            MySqlDataReader reader;
+
+            // A consultar !
+
+            // Abre la base de datos
+            databaseConnection.Open();
+
+            // Ejecuta la consultas
+            reader = commandDatabase.ExecuteReader();
+
+            // Hasta el momento todo bien, es decir datos obtenidos
+
+            // IMPORTANTE :#
+            // Si tu consulta retorna un resultado, usa el siguiente proceso para obtener datos
+
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    jugador = new Jugador();
+                    jugador.Identificacion = reader.GetString("identificacion");
+                    jugador.Nombre = reader.GetString("nombre");
+                    jugador.Apellidos = reader.GetString("apellidos");
+                    jugador.FechaNacimiento = reader.GetDateTime("fecha_nacimiento");
+                    jugador.IdEquipo = reader.GetInt32("identificador_equipo");
+
+                    jugadorList.Add(jugador);
+                }
+            }
+            else
+            {
+
+                Console.WriteLine("No se encontraron datos.");
+            }
+
+            // Cerrar la conexión
+            databaseConnection.Close();
+
+
+            if (jugadorList.Count() > 0) { return jugadorList[0]; }
+
+
+
+            return new Jugador();
+        }
 
 
 

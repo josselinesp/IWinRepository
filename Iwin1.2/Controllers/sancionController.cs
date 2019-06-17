@@ -15,18 +15,19 @@ namespace Iwin1._2.Controllers
     {
 
         sancionData sancionData = new sancionData();
-        // GET: api/sancion
-        [HttpGet]
-        public IEnumerable<sancionColectiva> Get()
-        {
-            return this.sancionData.GetAllSancionescolectivas();
-        }
+     
 
         // GET: api/sancion/5
         [HttpGet("{id}", Name = "Getfddfdg")]
-        public string Get(int id)
+        public IEnumerable<sancionColectiva> Get(int id)
         {
-            return "value";
+            return this.sancionData.GetAllSancionescolectivas(id);
+        }
+        // GET: api/sancion/5
+        [HttpGet("campeonato/{id}", Name = "Getfvgfgddfdg")]
+        public IEnumerable<sancionColectiva> Geta(int id)
+        {
+            return this.sancionData.GetAllSancionescolectivasByCampeonato(id);
         }
 
         // POST: api/sancion
