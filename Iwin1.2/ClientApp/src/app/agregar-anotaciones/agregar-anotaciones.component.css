@@ -80,7 +80,7 @@ select[_ngcontent-c1], input[_ngcontent-c1] {
 
 .grid-container1 {
   display: grid;
-  grid-template-columns: auto auto ;
+  grid-template-columns: auto ;
 
   padding: 10px;
 }
