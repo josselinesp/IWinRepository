@@ -157,7 +157,169 @@ namespace Iwin1_2.Data
 
 
         }
+        public void ValidaRegistro( int idJuego)
+        {
+            int individuales=0;
+            int colectivas = 0;
+            int totalColectivas = 0;
+            int totalIndividuales = 0;
+            using (MySqlConnection sqlCon = GetConnection())
+            {
+                String query;
+                sqlCon.Open();
+          
+                    query = "select col.cantidad as colectivas ,indivi.cantidad as individuales, sum(r.sancionesIndividuales) as totalIndividuales , sum(r.sancionesColectivas) as totalColectivas from resultado r ,(select COUNT(identificador)as cantidad from sancionindividual WHERE identificador_juego="+idJuego+") as indivi,(select COUNT(identificador) as cantidad from sancioncolectiva WHERE identificador_juego="+idJuego+") as col where r.idJuego ="+idJuego;
 
+
+
+                MySqlCommand sqlSelect = new MySqlCommand(query, sqlCon);
+
+                using (MySqlDataReader reader = sqlSelect.ExecuteReader())
+                {
+
+
+                    while (reader.Read())
+                    {
+                       
+                        individuales = reader.GetInt16("individuales");
+                        colectivas = reader.GetInt16("colectivas");
+                        totalColectivas = reader.GetInt16("totalColectivas");
+
+                        totalIndividuales = reader.GetInt16("totalIndividuales");
+                       
+                    }
+                    sqlCon.Close();
+
+
+                }
+            }
+
+            if (individuales == totalIndividuales && colectivas == totalColectivas) {
+                actualizarJuego(idJuego);
+                
+            }
+           
+           
+
+
+
+
+
+        }
+
+
+        public void actualizarJuego(int idJuego)
+        {
+
+
+
+
+            // Tu consulta en SQL
+            string query = "Update juego set estado_juego='registrado'  where identificador = '" + idJuego + "'";
+
+            Console.Write(query);
+
+            // Prepara la conexión
+            MySqlConnection databaseConnection = new MySqlConnection(connectionString);
+            MySqlCommand commandDatabase = new MySqlCommand(query, databaseConnection);
+            commandDatabase.CommandTimeout = 60;
+            MySqlDataReader reader;
+
+            // A consultar !
+
+            // Abre la base de datos
+            databaseConnection.Open();
+
+            // Ejecuta la consultas
+            reader = commandDatabase.ExecuteReader();
+
+            // Hasta el momento todo bien, es decir datos obtenidos
+
+            // IMPORTANTE :#
+            // Si tu consulta retorna un resultado, usa el siguiente proceso para obtener datos
+
+
+
+            // Cerrar la conexión
+            databaseConnection.Close();
+
+
+        }
+
+        public List<Juego> listarJuegosPorCampeonato(Int32 identificadorCampeonato)
+        {
+
+            Juego juego;
+            Campeonato campeonato;
+            Equipo equipoA;
+            Equipo equipoB;
+            Arbitro arbitro;
+            List<Juego> juegoList = new List<Juego>();
+            string connectionString = "Server=163.178.107.130; Database=iwincjm; Uid= laboratorios; Pwd=UCRSA.118;";
+            // Tu consulta en SQL
+            string query = "SELECT j.identificador, c.nombre_campeonato as campeonato, eb.identificador as idB,ea.identificador as idA,ea.nombre_equipo as equipoA, " +
+                "eb.nombre_equipo as equipoB,j.fecha_juego, j.estado_juego, j.lugar, a.nombre as arbitro " +
+                "FROM iwincjm.juego j JOIN iwincjm.equipo ea ON j.equipo_A = ea.identificador " +
+                "JOIN iwincjm.equipo eb ON j.equipo_B = eb.identificador " +
+                "JOIN iwincjm.campeonato c ON j.identificador_campeonato = c.identificador " +
+                "JOIN iwincjm.arbitro a ON j.arbitro_asignado = a.identificacion " +
+                "WHERE j.identificador_campeonato=" + identificadorCampeonato+ " and j.estado_juego='finalizado'";
+
+
+            // Prepara la conexión
+            MySqlConnection databaseConnection = new MySqlConnection(connectionString);
+            MySqlCommand commandDatabase = new MySqlCommand(query, databaseConnection);
+            commandDatabase.CommandTimeout = 60;
+            MySqlDataReader reader;
+
+            // A consultar !
+
+            // Abre la base de datos
+            databaseConnection.Open();
+
+            // Ejecuta la consultas
+            reader = commandDatabase.ExecuteReader();
+
+            // Hasta el momento todo bien, es decir datos obtenidos
+
+            // IMPORTANTE :#
+            // Si tu consulta retorna un resultado, usa el siguiente proceso para obtener datos
+
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    juego = new Juego();
+                    equipoA = new Equipo();
+                    equipoB = new Equipo();
+                    arbitro = new Arbitro();
+                    juego.Identificador = reader.GetInt32("identificador");
+                    equipoA.NombreEquipo = reader.GetString("equipoA");
+                    equipoB.NombreEquipo = reader.GetString("equipoB");
+                    equipoA.Identificador = reader.GetInt32("idA");
+                    equipoB.Identificador = reader.GetInt32("idB");
+                    juego.EquipoA = equipoA;
+                    juego.EquipoB = equipoB;
+                    juego.FechaJuego = reader.GetDateTime("fecha_juego");
+                    juego.EstadoJuego = reader.GetString("estado_juego");
+                    juego.Lugar = reader.GetString("lugar");
+                    arbitro.Nombre = reader.GetString("arbitro");
+                    juego.ArbitroAsignado = arbitro;
+                    juegoList.Add(juego);
+                }
+            }
+            else
+            {
+
+                Console.WriteLine("No se encontraron datos.");
+            }
+
+            // Cerrar la conexión
+            databaseConnection.Close();
+
+
+            return juegoList;
+        }
 
 
 
@@ -247,7 +409,7 @@ namespace Iwin1_2.Data
 
             // Cerrar la conexión
             databaseConnection.Close();
-
+            ValidaRegistro(anotacion.Juego);
 
         }
 

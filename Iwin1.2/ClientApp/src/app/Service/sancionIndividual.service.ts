@@ -43,7 +43,7 @@ export class SancionIndividualService {
 
   public getJuegos(idCampeonato: number): Observable<Juego[]> {
 
-    return this.http.get(this.url + 'api/Juego/' + idCampeonato).map(response => response.json());
+    return this.http.get(this.url + 'api/Anotacion/juego/' + idCampeonato).map(response => response.json());
 
 
   }

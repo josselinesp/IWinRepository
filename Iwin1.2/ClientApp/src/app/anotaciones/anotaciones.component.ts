@@ -8,6 +8,7 @@ import { Alert } from 'selenium-webdriver';
 import { Jugador } from '../Domain/Jugador.model';
 import { SancionIndividual } from '../Domain/sancionIndividual.model';
 import { Anotacion } from '../Domain/anotacion.model';
+import { NoopInterceptor } from '@angular/common/http/src/interceptor';
 @Component({
   selector: 'app-anotaciones',
   templateUrl: './anotaciones.component.html',
@@ -30,7 +31,7 @@ export class AnotacionesComponent implements OnInit {
   jugadorSelecto: Jugador;
   jugadorS: string;
   juego: Juego;
-
+  datos: boolean = false;
   constructor(private http: HttpClient, @Inject('BASE_URL') public baseUrl: string, private SancionColectivaService: SancionColectivaService) {
 
   }
@@ -91,8 +92,10 @@ export class AnotacionesComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log("pasaaaaaaaaaa")
     this.cantidad = 0;
     this.jugadorSelecto = null;
+    this.datos = false;
 
     this.http.get<Equipo>(this.baseUrl + "api/resultado/equipo/" + this.idEquipo).subscribe(result => {
       this.equipo = result;
@@ -110,11 +113,18 @@ export class AnotacionesComponent implements OnInit {
 
     this.http.get<Resultado>(this.baseUrl + 'api/resultado/' + this.idJuego + "/" + this.idEquipo).subscribe(result => {
       this.resultadoA = result; this.total = this.resultadoA.anotaciones;
+      if (this.total != 0) {
+        this.datos = true;
+
+      }
     }, error => console.error(error));
 
 
   }
+  setidEquipo(idEquipo: number) {
+    this.idEquipo = idEquipo;
 
+  }
   getTotal() {
     if (this.resultadoA != null)
       this.total = this.resultadoA.anotaciones;

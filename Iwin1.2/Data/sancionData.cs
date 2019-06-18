@@ -323,7 +323,7 @@ namespace Iwin1_2.Data
             // Cerrar la conexión
             databaseConnection.Close();
 
-
+            ValidaRegistroIndividual(sancion.Juego, 2);
         }
 
 
@@ -363,7 +363,7 @@ namespace Iwin1_2.Data
 
             // Cerrar la conexión
             databaseConnection.Close();
-
+            ValidaRegistroIndividual(sancion.Juego, 1);
 
         }
 
@@ -435,7 +435,102 @@ namespace Iwin1_2.Data
 
 
 
+        public void ValidaRegistroIndividual(int idJuego,int bandera)
+        {
+            int individuales = 0;
+            int colectivas = 0;
+            int totalColectivas = 0;
+            int totalIndividuales = 0;
+            using (MySqlConnection sqlCon = GetConnection())
+            {
+                String query;
+                sqlCon.Open();
+                if (bandera == 1)
+                {
+                    query = "select col.cantidad as colectivas ,indivi.cantidad as individuales, sum(r.anotaciones) as totalIndividuales , COALESCE (sum(r.sancionesColectivas),0) as totalColectivas from resultado r ,(select COALESCE (sum(cantidad_goles),0) as cantidad from anotaciones WHERE identificador_juego=" + idJuego + ") as indivi,(select COUNT(identificador) as cantidad from sancioncolectiva WHERE identificador_juego=" + idJuego + ") as col where r.idJuego =" + idJuego;
+                }
+                else 
+                {
 
+                    query = "select col.cantidad as colectivas ,indivi.cantidad as individuales, sum(r.anotaciones) as totalIndividuales , COALESCE ( sum(r.sancionesIndividuales),0) as totalColectivas from resultado r ,(select COALESCE ( sum(cantidad_goles),0) as cantidad from anotaciones WHERE identificador_juego=" + idJuego + ") as indivi,(select COUNT(identificador) as cantidad from sancionindividual WHERE identificador_juego=" + idJuego + ") as col where r.idJuego =" + idJuego;
+
+                }
+
+
+                MySqlCommand sqlSelect = new MySqlCommand(query, sqlCon);
+
+                using (MySqlDataReader reader = sqlSelect.ExecuteReader())
+                {
+
+
+                    while (reader.Read())
+                    {
+
+                        individuales = reader.GetInt16("individuales");
+                        colectivas = reader.GetInt16("colectivas");
+                        totalColectivas = reader.GetInt16("totalColectivas");
+
+                        totalIndividuales = reader.GetInt16("totalIndividuales");
+
+                    }
+                    sqlCon.Close();
+
+
+                }
+            }
+
+            if (individuales == totalIndividuales && colectivas == totalColectivas)
+            {
+                actualizarJuego(idJuego);
+
+            }
+
+
+
+
+
+
+
+        }
+
+
+        public void actualizarJuego(int idJuego)
+        {
+
+
+
+
+            // Tu consulta en SQL
+            string query = "Update juego set estado_juego='registrado'  where identificador = '" + idJuego + "'";
+
+            Console.Write(query);
+
+            // Prepara la conexión
+            MySqlConnection databaseConnection = new MySqlConnection(connectionString);
+            MySqlCommand commandDatabase = new MySqlCommand(query, databaseConnection);
+            commandDatabase.CommandTimeout = 60;
+            MySqlDataReader reader;
+
+            // A consultar !
+
+            // Abre la base de datos
+            databaseConnection.Open();
+
+            // Ejecuta la consultas
+            reader = commandDatabase.ExecuteReader();
+
+            // Hasta el momento todo bien, es decir datos obtenidos
+
+            // IMPORTANTE :#
+            // Si tu consulta retorna un resultado, usa el siguiente proceso para obtener datos
+
+
+
+            // Cerrar la conexión
+            databaseConnection.Close();
+
+
+        }
     }
 
 

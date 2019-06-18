@@ -96,7 +96,7 @@
         <tr *ngFor="let juego of juegos" (click)="seleccionaJuego(juego)">
           <td style="vertical-align:middle">{{juego.equipoA.nombreEquipo}} {{juego.equipoA.identificador}} </td>
           <td style="vertical-align:middle">{{juego.equipoB.nombreEquipo}} {{juego.equipoB.identificador}}</td>
-          <td style="vertical-align:middle">{{juego.fechaJuego}}</td>
+          <td style="vertical-align:middle">{{juego.fechaJuego | date:'dd/MM/yyyy hh:mm'}}</td>
           <td style="vertical-align:middle">{{juego.estadoJuego}}</td>
           <td style="vertical-align:middle">{{juego.lugar}}</td>
           <td style="vertical-align:middle">{{juego.arbitroAsignado.nombre}}</td>
@@ -127,7 +127,7 @@
 
     <div class="grid-item1">
 
-      <button type="button" (click)="guardarAnotaciones()" class="btn btn-info">Guardar</button>
+      <button type="button" (click)="guardarAnotaciones()" class="btn btn-info">Aceptar</button>
     </div>
   </div>
 </div>

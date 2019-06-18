@@ -43,6 +43,8 @@ namespace Iwin1._2.Controllers
             return juegoData.listarJuegoPorIdentificador(identificadorJuego);
         }
 
+
+
         /*
                 // PUT: api/Juego/actualizar/5
                 [HttpPut("actualizar/{id}")]

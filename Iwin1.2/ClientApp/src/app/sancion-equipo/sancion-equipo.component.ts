@@ -25,7 +25,7 @@ export class SancionEquipoComponent implements OnInit {
   public resultadoA: Resultado;
   public sancionesExistentes: boolean;
   juego: Juego;
-
+  datos: boolean;
   constructor(private http: HttpClient, @Inject('BASE_URL') public baseUrl: string,private SancionColectivaService: SancionColectivaService) {
 
 
@@ -83,6 +83,7 @@ export class SancionEquipoComponent implements OnInit {
   ngOnInit() {
     this.tipo = "";
     this.motivo = "";
+    this.datos = false;
     this.http.get<Equipo>(this.baseUrl + "api/resultado/equipo/" + this.idEquipo).subscribe(result => {
       this.equipo = result;
     }, error => console.error(error));
@@ -97,6 +98,7 @@ export class SancionEquipoComponent implements OnInit {
 
     this.http.get<Resultado>(this.baseUrl + 'api/resultado/' + this.idJuego +"/"+ this.idEquipo).subscribe(result => {
       this.resultadoA = result; this.total = this.resultadoA.sancionesColectivas;
+      if (this.total != 0) { this.datos = true;}
     }, error => console.error(error));
   
 
@@ -120,6 +122,10 @@ export class SancionEquipoComponent implements OnInit {
    
     return this.sanciones;
 
+
+  }
+  setidEquipo(idEquipo: number) {
+    this.idEquipo = idEquipo;
 
   }
   datoscorrectos: boolean;

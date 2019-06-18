@@ -58,7 +58,12 @@ export class AgregarSancionIndividualComponent implements OnInit {
   seleccionaJuego(juego: Juego) {
     this.juego = juego;
     this.juegosSelectos = true;
-
+    this.actualizarCom.setidEquipo(juego.equipoA.identificador);
+    this.actualizarCom2.setidEquipo(juego.equipoB.identificador);
+    this.actualizarCom2.idJuego = juego.identificador;
+    this.actualizarCom.idJuego = juego.identificador;
+    this.actualizarCom.ngOnInit();
+    this.actualizarCom2.ngOnInit();
     this.http.get<Resultado>(this.baseUrl + 'api/resultado/' + this.juego.identificador + "/" + this.idEquipo).subscribe(result => {
       this.resultadoA = result;
     }, error => console.error(error));
@@ -85,21 +90,29 @@ export class AgregarSancionIndividualComponent implements OnInit {
 
 
   guardarSanciones() {
+
+
+
     if (this.actualizarCom != null) {
       if (this.actualizarCom2 != null) {
         if (this.actualizarCom.validar() && this.actualizarCom2.validar()) {
-          alert("todo listo");
+          alert("");
+          var ans = confirm("Los datos son correctos,¿Esta de acuerdo con proceder con el registro?");
+          if (ans) {
+            for (var _i = 0; _i < this.actualizarCom.sanciones.length; _i++) {
+              this.SancionIndividualService.guardarSancion(this.actualizarCom.sanciones[_i]).subscribe(data => this.sancionC = data);
 
-          for (var _i = 0; _i < this.actualizarCom.sanciones.length; _i++) {
-            this.SancionIndividualService.guardarSancion(this.actualizarCom.sanciones[_i]).subscribe(data => this.sancionC = data);
+            }
+            for (var _i = 0; _i < this.actualizarCom2.sanciones.length; _i++) {
+              this.SancionIndividualService.guardarSancion(this.actualizarCom2.sanciones[_i]).subscribe(data => this.sancionC = data);
+
+            }
+
+            window.location.reload();
 
           }
-          for (var _i = 0; _i < this.actualizarCom2.sanciones.length; _i++) {
-            this.SancionIndividualService.guardarSancion(this.actualizarCom2.sanciones[_i]).subscribe(data => this.sancionC = data);
 
-          }
 
-         // window.location.reload();
 
         }
         else {

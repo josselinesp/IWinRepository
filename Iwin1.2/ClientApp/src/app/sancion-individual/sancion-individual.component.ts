@@ -32,7 +32,7 @@ export class SancionIndividualComponent implements OnInit {
   jugadorSelecto: Jugador;
   jugadorS: string;
   juego: Juego;
-
+  datos: boolean = false;
   constructor(private http: HttpClient, @Inject('BASE_URL') public baseUrl: string, private SancionColectivaService: SancionColectivaService) {
 
   }
@@ -93,7 +93,7 @@ export class SancionIndividualComponent implements OnInit {
     this.motivo = "";
     this.jugadorSelecto = null;
     this.tarjeta = "";
-
+    this.datos = false;
     this.http.get<Equipo>(this.baseUrl + "api/resultado/equipo/" + this.idEquipo).subscribe(result => {
       this.equipo = result;
     }, error => console.error(error));
@@ -110,6 +110,7 @@ export class SancionIndividualComponent implements OnInit {
 
     this.http.get<Resultado>(this.baseUrl + 'api/resultado/' + this.idJuego + "/" + this.idEquipo).subscribe(result => {
       this.resultadoA = result; this.total = this.resultadoA.sancionesIndividuales;
+      if (this.total != 0) { this.datos = true; }
     }, error => console.error(error));
 
 
@@ -133,6 +134,10 @@ export class SancionIndividualComponent implements OnInit {
 
     return this.sanciones;
 
+
+  }
+  setidEquipo(idEquipo: number) {
+    this.idEquipo = idEquipo;
 
   }
   datoscorrectos: boolean;
@@ -198,4 +203,11 @@ export class SancionIndividualComponent implements OnInit {
     }
 
   }
+
+
+  ajustarFechas() {
+
+
+  }
+
 }

@@ -20,6 +20,18 @@ namespace Iwin1._2.Controllers
             return data.GetAllAnotacionesByCampeonato(id);
         }
 
+
+        // GET: api/Anotacion
+        [HttpGet("juego/{id}", Name = "Getdrrrsssrr")]
+        public IEnumerable<Juego> GetJuegos(int id)
+        {
+            return data.listarJuegosPorCampeonato(id);
+        }
+
+
+
+       
+
         // GET: api/Anotacion/5
         [HttpGet("{id}/{juego}", Name = "Getrrrrr")]
         public IEnumerable<anotacion> Get(int id,int juego)
